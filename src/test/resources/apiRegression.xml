@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Use tests automation">
+
+    <test name="API Regression test">
+        <classes>
+            <!--            <class name="tests.testClickMe"/>-->
+            <!--            <class name="tests.testAddEmployee"/>-->
+        </classes>
+
+    </test>
+</suite>
