@@ -3,8 +3,7 @@
 
     <test name="UI Regression test">
         <classes>
-<!--            <class name="tests.testClickMe"/>-->
-<!--            <class name="tests.testAddEmployee"/>-->
+            <class name="uitests.TestSignIn"/>
         </classes>
 
     </test>
