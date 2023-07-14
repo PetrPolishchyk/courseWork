@@ -3,7 +3,8 @@
 
     <test name="UI Regression test">
         <classes>
-            <class name="uitests.TestSignIn"/>
+            <class name="tests.TestSignIn"/>
+            <class name="tests.CreateNewProjectTest"/>
         </classes>
 
     </test>
