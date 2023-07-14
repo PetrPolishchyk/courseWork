@@ -1,3 +1,5 @@
 /.idea/
 /courseWork.iml
 /target/
+/build/
+/allure-report/
