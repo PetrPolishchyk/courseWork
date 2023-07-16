@@ -5,6 +5,7 @@
         <classes>
             <class name="tests.TestSignIn"/>
             <class name="tests.CreateNewProjectTest"/>
+            <class name="tests.WorkingWithTaskTest"/>
         </classes>
 
     </test>
