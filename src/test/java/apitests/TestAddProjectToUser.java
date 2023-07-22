@@ -19,7 +19,7 @@ public class TestAddProjectToUser extends BasicAPIConfiguration{
     @Description("Test of adding a new user to new project")
     public void addNewUserToNewProject(){
         newUserId = testUserCreate.createUser("User7", "102366");
-        newProjectId = testProjectCreate.createProject("Project from test creation");
+        newProjectId = testProjectCreate.createProject("Project from test creation", 5);
         Assert.assertTrue(addProjectToUser(newUserId, newProjectId));
     }
     @Test(priority = 1)
@@ -38,7 +38,7 @@ public class TestAddProjectToUser extends BasicAPIConfiguration{
                 .params(Params.builder().project_id(projectId).user_id(userId).role("project-viewer").build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(addProjectToUser)
                 .post(BASE_URL);
         response.prettyPrint();
@@ -53,7 +53,7 @@ public class TestAddProjectToUser extends BasicAPIConfiguration{
                 .params(Params.builder().project_id(projectId).user_id(userId).build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(removeProjectToUser)
                 .post(BASE_URL);
         response.prettyPrint();

@@ -31,13 +31,17 @@ public class WorkingWithTaskTest extends BaseWorkingClass {
     TaskBody taskBody = new TaskBody();
     AddComment addComment = new AddComment();
 
+//3. Користувач може створити завдання. Користувач, проект, посилання між
+//користувачем і проектом створюються за допомогою API як попередні
+//умови та видаляються за допомогою API як постумови.
     @Test(priority = 0)
     @Description("Test of a task creation")
     public void createNewTask(){
-        setUpChrome();
+        //setUpChrome();
+        setUpDinamicallyBrowser();
         //create user and project, add project to the user
         newUserId = userCreate.createUser(userName, userPassword);
-        newProjectId = projectCreate.createProject(newProjectName);
+        newProjectId = projectCreate.createProject(newProjectName, 5);
         Assert.assertTrue(addProjectToUser.addProjectToUser(newUserId, newProjectId));
         //sign in as a newly created user
         signIn.signInDynamically(userName, userPassword);
@@ -48,7 +52,7 @@ public class WorkingWithTaskTest extends BaseWorkingClass {
         projectBody.clickAddNewBacklogTask();
         newTask.setTitleToNewTask(titleOfNewTask);
         newTask.setDescription(descriptionOfNewTask);
-        newTask.selectColor("Green");
+        //newTask.selectColor("Green");
         newTask.clickSave();
         //check the task creation
         Assert.assertEquals(projectBody.getTextOfNewlyCreatedTask(), titleOfNewTask, "The task was not created with correct name");
@@ -57,14 +61,21 @@ public class WorkingWithTaskTest extends BaseWorkingClass {
         mainPage.clickLogout();
         cleanUp();
     }
+
+//5. Користувач може додавати коментарі до завдання. Користувач, проект,
+//посилання між користувачем і проектом створюються за допомогою API як
+//попередні умови та видаляються за допомогою API як постумови.
     @Test(priority = 1)
     @Description("Test of adding a comment to the task")
     public void addCommentToTaskTest(){
-        setUpChrome();
-        //sign in and open the tasks
+        //setUpChrome();
+        setUpDinamicallyBrowser();
+        //sign in
         signIn.signInDynamically(userName, userPassword);
-        mainPage.clickOnMyTasks();
+        //mainPage.clickOnMyTasks();
         //open the task and check the description
+        mainPage.clickOnMyProjects();
+        mainPage.clickOnProjectTitle();
         mainPage.openTask();
         Assert.assertEquals(taskBody.getDescriptionTextOfTask(), descriptionOfNewTask, "The task was not found");
         //add a new comment
@@ -77,13 +88,20 @@ public class WorkingWithTaskTest extends BaseWorkingClass {
         mainPage.clickLogout();
         cleanUp();
     }
+
+// 4. Користувач може закрити завдання. Користувач, проект, посилання між
+//користувачем і проектом створюються за допомогою API як попередні
+//умови та видаляються за допомогою API як постумови
     @Test(priority = 2)
     @Description("Test of the task closing")
     public void closeTask(){
-        setUpChrome();
-        //sign in and open the tasks
+        //setUpChrome();
+        setUpDinamicallyBrowser();
+        //sign in
         signIn.signInDynamically(userName, userPassword);
-        mainPage.clickOnMyTasks();
+        //mainPage.clickOnMyTasks();
+        mainPage.clickOnMyProjects();
+        mainPage.clickOnProjectTitle();
         //open the task
         mainPage.openTask();
         //close this task
@@ -91,7 +109,7 @@ public class WorkingWithTaskTest extends BaseWorkingClass {
         new CloseTask().clickConfirmToCloseTask();
         //go to dashboard
         taskBody.goToDashboard();
-        Assert.assertEquals(mainPage.getTextOfEmptyTasks(), "There is nothing assigned to you.", "The tasks list is not empty");
+        Assert.assertEquals(mainPage.getAlertTextIfNoAnyTasks(), "There is nothing assigned to you.", "The tasks list is not empty");
         //logout
         mainPage.openUserMenu();
         mainPage.clickLogout();

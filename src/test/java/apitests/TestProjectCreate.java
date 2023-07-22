@@ -5,17 +5,17 @@ import apiobjects.Params;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import jdk.jfr.Description;
-import org.apache.commons.lang3.ObjectUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+// 3. Створення та видалення проекту.
 public class TestProjectCreate extends BasicAPIConfiguration{
     private Integer newProjectId = 0;
 
     @Test(priority = 0)
     @Description("Create a new Project test")
     public void createNewProject(){
-        newProjectId = createProject("Test project creation");
+        newProjectId = createProject("Test project creation", 5);
         Assert.assertNotSame(newProjectId, 0, "New Project was not created");
     }
     @Test(priority = 1)
@@ -24,16 +24,16 @@ public class TestProjectCreate extends BasicAPIConfiguration{
         Assert.assertTrue(deleteProject(newProjectId));
     }
 
-    public Integer createProject(String projectName){
+    public Integer createProject(String projectName, Integer owner){
         CreateRequest newProject = new CreateRequest().builder()
                 .jsonrpc("2.0")
                 .method("createProject")
                 .id("1797076613")
                 .params(Params.builder().name(projectName).description("test project description")
-                        .owner_id(5).identifier("IDENTR").build())
+                        .owner_id(owner).identifier("IDENTR").build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(newProject)
                 .post(BASE_URL);
         response.prettyPrint();
@@ -49,7 +49,7 @@ public class TestProjectCreate extends BasicAPIConfiguration{
                 .params(Params.builder().project_id(projectId).build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(deleteProject)
                 .post(BASE_URL);
         response.prettyPrint();

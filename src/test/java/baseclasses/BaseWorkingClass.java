@@ -3,6 +3,7 @@ package baseclasses;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import org.testng.annotations.Parameters;
 
 public class BaseWorkingClass {
     public void setUpChrome(){
@@ -26,7 +27,8 @@ public class BaseWorkingClass {
         Selenide.closeWebDriver();
     }
 
-    public void setUpDinamicallyBrowser(String browserType){
+    public void setUpDinamicallyBrowser(){
+        String browserType = System.getProperty("browser");
         if (browserType == "chrome"){
             Configuration.browser = "chrome";
         } else if (browserType == "firefox"){
