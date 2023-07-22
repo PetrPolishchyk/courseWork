@@ -6,8 +6,8 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ProjectBody {
-    private SelenideElement addNewBacklogTask = $x("//th[@class='board-column-header board-column-header-73']//i[@class='fa fa-plus fa-fw js-modal-large']");
-    private SelenideElement addedNewTask = $x("//div[@class='task-board draggable-item task-board-status-open task-board-recent color-green ui-sortable-handle']//div[@class='task-board-title']/a");
+    private SelenideElement addNewBacklogTask = $x("//a[contains(text(), 'Backlog')]/parent::span/parent::span/preceding-sibling::div");
+    private SelenideElement addedNewTask = $x("//div[@class='task-board-title']/a");
     public void clickAddNewBacklogTask(){
         getAddNewBacklogTask().click();
     }

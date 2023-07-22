@@ -8,6 +8,7 @@ import jdk.jfr.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+// 1. Створення та видалення користувача
 public class TestUserCreate extends BasicAPIConfiguration {
     private Integer newUserId = 0;
 
@@ -34,10 +35,10 @@ public class TestUserCreate extends BasicAPIConfiguration {
                         .password(password)
                         .name(username)
                         .email(username + "@gmail.com")
-                        .role("app-user").build())
+                        .role("app-admin").build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(createNewUser)
                 .post(BASE_URL);
         response.prettyPrint();
@@ -53,7 +54,7 @@ public class TestUserCreate extends BasicAPIConfiguration {
                 .params(Params.builder().user_id(userId).build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(createRequest)
                 .post(BASE_URL);
         response.prettyPrint();

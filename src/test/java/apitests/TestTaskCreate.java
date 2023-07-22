@@ -8,10 +8,11 @@ import jdk.jfr.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+// 2. Створення та видалення задачі.
 public class TestTaskCreate extends BasicAPIConfiguration {
 
-    private Integer projectId = 1;
-    private Integer newTaskId = 0;
+    private Integer projectId;
+    private Integer newTaskId;
 
     TestUserCreate testUserCreate = new TestUserCreate();
     TestProjectCreate testProjectCreate = new TestProjectCreate();
@@ -20,6 +21,7 @@ public class TestTaskCreate extends BasicAPIConfiguration {
     @Test(priority = 0)
     @Description("Create new task test")
     public void createNewTask(){
+        projectId = testProjectCreate.createProject("New test project", 1);
         newTaskId = createTask("New task", projectId);
         Assert.assertNotSame(newTaskId, 0, "New task was not created");
     }
@@ -27,6 +29,7 @@ public class TestTaskCreate extends BasicAPIConfiguration {
     @Description("Remove the task test")
     public void removeTaskTest(){
         Assert.assertTrue(deleteTask(newTaskId));
+        testProjectCreate.deleteProject(projectId);
     }
 
     public Integer createTask(String title, Integer projectId){
@@ -36,13 +39,13 @@ public class TestTaskCreate extends BasicAPIConfiguration {
                 .id("1176509098")
                 .params(Params.builder().owner_id(1)
                         .creator_id(0).description("test").category_id(0)
-                        .score(0).title(title).project_id(projectId)
+                        .score(0).title(title).project_id(projectId).swimlane_id(projectId)
                         .color_id("Green").column_id(0).recurrence_status(0)
                         .recurrence_trigger(0).recurrence_factor(0).recurrence_timeframe(0)
                         .recurrence_basedate(0).build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(newTask)
                 .post(BASE_URL);
         response.prettyPrint();
@@ -58,7 +61,7 @@ public class TestTaskCreate extends BasicAPIConfiguration {
                 .params(Params.builder().task_id(taskId).build())
                 .build();
         Response response = RestAssured.given()
-                .auth().basic(getUSER_ADMIN(), getTOKEN())
+                .auth().basic(getUserAdmin(), getToken())
                 .body(deleteTask)
                 .post(BASE_URL);
         response.prettyPrint();

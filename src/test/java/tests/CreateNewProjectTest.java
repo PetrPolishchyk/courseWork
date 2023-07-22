@@ -10,6 +10,7 @@ import pageobjects.LoginPage;
 import pageobjects.MainPage;
 import pageobjects.NewProjectWindow;
 
+//2. Користувач може створити проект.
 public class CreateNewProjectTest extends BaseWorkingClass {
     SignIn signIn = new SignIn();
     MainPage mainPage = new MainPage();
@@ -20,7 +21,8 @@ public class CreateNewProjectTest extends BaseWorkingClass {
     @Test
     @Description("Create, open and delete a new Project by Admin")
     public void createNewProject(){
-        setUpChrome();
+        //setUpChrome();
+        setUpDinamicallyBrowser();
         signIn.signInAsAdmin();
         mainPage.clickNewProjectButton();
         newProjectWindow.setNameField("Test Project Name Created By UI");

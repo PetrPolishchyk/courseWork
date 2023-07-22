@@ -14,7 +14,7 @@ public class MainPage {
     private SelenideElement myProjects = $x("//a[text()='My projects']");
     private SelenideElement projectTitle = $x("//span[@class='table-list-title ']/a");
     private SelenideElement myTasks = $x("//a[text()='My tasks']");
-    private SelenideElement taskTitle = $x("//span[@class='table-list-title ']");
+    private SelenideElement taskTitle = $x("//div[@class = 'task-board-title']/a");
     private SelenideElement textOfEmptyTasks = $x("//p[@class='alert']");
 
     public void openUserMenu(){
