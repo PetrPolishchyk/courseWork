@@ -2,6 +2,7 @@ package apitests;
 
 import apiobjects.CreateRequest;
 import apiobjects.Params;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import jdk.jfr.Description;
@@ -32,6 +33,7 @@ public class TestTaskCreate extends BasicAPIConfiguration {
         testProjectCreate.deleteProject(projectId);
     }
 
+    @Step("Create a new task")
     public Integer createTask(String title, Integer projectId){
         CreateRequest newTask = new CreateRequest().builder()
                 .jsonrpc("2.0")
@@ -52,6 +54,7 @@ public class TestTaskCreate extends BasicAPIConfiguration {
         return response.jsonPath().get("result");
     }
 
+    @Step("Delete the task")
     public Boolean deleteTask(Integer taskId){
         new CreateRequest();
         CreateRequest deleteTask = CreateRequest.builder()

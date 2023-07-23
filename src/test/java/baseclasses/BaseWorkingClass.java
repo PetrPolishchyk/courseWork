@@ -6,20 +6,22 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.Parameters;
 
 public class BaseWorkingClass {
+    //private final String BASE_URL_UI = "http://localhost/login";
+    private final String BASE_URL_UI = System.getProperty("urlUI");
     public void setUpChrome(){
         Configuration.browser = "chrome";
-        Selenide.open("http://localhost/login");
+        Selenide.open(BASE_URL_UI);
         WebDriverRunner.getWebDriver().manage().window().maximize();
     }
     public void setUpFirefox(){
         Configuration.browser = "firefox";
-        Selenide.open("http://localhost/login");
+        Selenide.open(BASE_URL_UI);
         WebDriverRunner.getWebDriver().manage().window().maximize();
     }
     public void setUpChromeHeadless(){
         Configuration.browser = "chrome";
         Configuration.headless = true;
-        Selenide.open("http://localhost/login");
+        Selenide.open(BASE_URL_UI);
         WebDriverRunner.getWebDriver().manage().window().maximize();
     }
     public void cleanUp(){
@@ -37,7 +39,7 @@ public class BaseWorkingClass {
             Configuration.browser = "chrome";
             Configuration.headless = true;
         }
-        Selenide.open("http://localhost/login");
+        Selenide.open(BASE_URL_UI);
         WebDriverRunner.getWebDriver().manage().window().maximize();
     }
 }

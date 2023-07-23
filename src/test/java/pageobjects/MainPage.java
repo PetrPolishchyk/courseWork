@@ -2,6 +2,7 @@ package pageobjects;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -17,27 +18,33 @@ public class MainPage {
     private SelenideElement taskTitle = $x("//div[@class = 'task-board-title']/a");
     private SelenideElement textOfEmptyTasks = $x("//p[@class='alert']");
 
+    @Step("Open the user menu")
     public void openUserMenu(){
         getUserMenu().click();
     }
+    @Step("Logout")
     public void clickLogout(){
         getLogoutButton().click();
     }
+    @Step("Add a new project")
     public void clickNewProjectButton(){
         getNewProjectButton().shouldBe(Condition.visible).click();
     }
+    @Step("Open my projects")
     public void clickOnMyProjects(){
         getMyProjects().click();
     }
     public String getProjectTitleText(){
         return getProjectTitle().shouldBe(Condition.visible).text();
     }
+    @Step("Open the project")
     public void clickOnProjectTitle(){
         getProjectTitle().click();
     }
     public void clickOnMyTasks(){
         getMyTasks().shouldBe(Condition.visible).click();
     }
+    @Step("Open the task")
     public void openTask(){
         getTaskTitle().shouldBe(Condition.visible).click();
     }

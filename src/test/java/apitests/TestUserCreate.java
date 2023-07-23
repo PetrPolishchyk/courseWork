@@ -2,6 +2,7 @@ package apitests;
 
 import apiobjects.CreateRequest;
 import apiobjects.Params;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import jdk.jfr.Description;
@@ -24,6 +25,7 @@ public class TestUserCreate extends BasicAPIConfiguration {
         Assert.assertTrue(deleteUser(newUserId));
     }
 
+    @Step("Create a new user")
     public Integer createUser(String username, String password){
         new CreateRequest();
         CreateRequest createNewUser = CreateRequest.builder()
@@ -45,6 +47,7 @@ public class TestUserCreate extends BasicAPIConfiguration {
         return response.jsonPath().get("result");
     }
 
+    @Step("Delete the user")
     public Boolean deleteUser(Integer userId){
         new CreateRequest();
         CreateRequest createRequest = CreateRequest.builder()

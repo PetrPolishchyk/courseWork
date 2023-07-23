@@ -2,6 +2,7 @@ package pageobjects;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -13,14 +14,17 @@ public class LoginPage {
     private SelenideElement rememberMeCheckbox = $x("//input[@name='remember_me']");
     private SelenideElement alertError = $x("//p[@class='alert alert-error']");
 
+    @Step("Set username")
     public void setUserName(String name){
         getUserName().shouldBe(Condition.visible).clear();
         getUserName().sendKeys(name);
     }
+    @Step("Set password")
     public void setPassword(String pass){
         getPassword().shouldBe(Condition.visible).clear();
         getPassword().sendKeys(pass);
     }
+    @Step("Sign in")
     public void pressSignInButton(){
         getSignInButton().shouldBe(Condition.visible).click();
     }

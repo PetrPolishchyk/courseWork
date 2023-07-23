@@ -2,6 +2,7 @@ package pageobjects;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -12,10 +13,12 @@ public class CreateNewTask {
     private SelenideElement colorOption = $x("//div[@class='color-picker-option']");
 
     //methods
+    @Step("Set the title of a new task")
     public void setTitleToNewTask(String title){
         getTitle().shouldBe(Condition.visible).clear();
         getTitle().sendKeys(title);
     }
+    @Step("Set the description of a new task")
     public void setDescription(String description){
         getDescription().shouldBe(Condition.visible).clear();
         getDescription().sendKeys(description);
@@ -23,6 +26,7 @@ public class CreateNewTask {
     public void selectColor(String color){
         getColorOption().shouldBe(Condition.visible).selectOption(color);
     }
+    @Step("Create a new task")
     public void clickSave(){
         getSaveButton().shouldBe(Condition.visible).click();
     }
