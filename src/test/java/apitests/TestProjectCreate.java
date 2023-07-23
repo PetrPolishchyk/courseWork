@@ -2,6 +2,7 @@ package apitests;
 
 import apiobjects.CreateRequest;
 import apiobjects.Params;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import jdk.jfr.Description;
@@ -24,6 +25,7 @@ public class TestProjectCreate extends BasicAPIConfiguration{
         Assert.assertTrue(deleteProject(newProjectId));
     }
 
+    @Step("Create a new project")
     public Integer createProject(String projectName, Integer owner){
         CreateRequest newProject = new CreateRequest().builder()
                 .jsonrpc("2.0")
@@ -40,6 +42,7 @@ public class TestProjectCreate extends BasicAPIConfiguration{
         return response.jsonPath().get("result");
     }
 
+    @Step("Delete the project")
     public Boolean deleteProject(Integer projectId){
         new CreateRequest();
         CreateRequest deleteProject = CreateRequest.builder()

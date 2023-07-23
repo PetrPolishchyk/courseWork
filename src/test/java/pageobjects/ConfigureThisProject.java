@@ -1,6 +1,7 @@
 package pageobjects;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -15,6 +16,7 @@ public class ConfigureThisProject {
     public void pressRemoveProject(){
         getRemoveButton().click();
     }
+    @Step("Confirm the project removing")
     public void confirmRemoving(){
         getConfirmRemoveYes().click();
     }
